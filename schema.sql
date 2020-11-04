@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS post;
+
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
@@ -16,3 +19,8 @@ CREATE TABLE film (
   FOREIGN KEY (author_id) REFERENCES user (id)
 );
 
+INSERT INTO film(id,author_id,created,title,realisateur,date_sortie,synopsis)
+VALUES(1,1,CURRENT_TIMESTAMP,"Le seigneur des anneaux","Stephen King",2001-12-19,"Un jeune et timide `Hobbit', Frodon Sacquet, hérite d'un anneau magique. Bien loin d'être une simple babiole, il s'agit d'un instrument de pouvoir absolu qui permettrait à Sauron, le `Seigneur des ténèbres', de régner sur la `Terre du Milieu' et de réduire en esclavage ses peuples. Frodon doit parvenir jusqu'à la `Crevasse du Destin' pour détruire l'anneau.");
+
+INSERT INTO film(id,author_id,created,title,realisateur,date_sortie,synopsis)
+VALUES(1,1,CURRENT_TIMESTAMP,"Harry Potter","Chris Columbus",2001-12-5,"Orphelin, le jeune Harry Potter peut enfin quitter ses tyranniques oncle et tante Dursley lorsqu'un curieux messager lui révèle qu'il est un sorcier. À 11 ans, Harry va enfin pouvoir intégrer la légendaire école de sorcellerie de Poudlard, y trouver une famille digne de ce nom et des amis, développer ses dons, et préparer son glorieux avenir.");
