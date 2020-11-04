@@ -24,3 +24,6 @@ VALUES(1,1,CURRENT_TIMESTAMP,"Le seigneur des anneaux","Stephen King",2001-12-19
 
 INSERT INTO film(id,author_id,created,title,realisateur,date_sortie,synopsis)
 VALUES(1,1,CURRENT_TIMESTAMP,"Harry Potter","Chris Columbus",2001-12-5,"Orphelin, le jeune Harry Potter peut enfin quitter ses tyranniques oncle et tante Dursley lorsqu'un curieux messager lui révèle qu'il est un sorcier. À 11 ans, Harry va enfin pouvoir intégrer la légendaire école de sorcellerie de Poudlard, y trouver une famille digne de ce nom et des amis, développer ses dons, et préparer son glorieux avenir.");
+
+INSERT INTO user(id,username,password)
+VALUES(1,Colin,bonjour)
