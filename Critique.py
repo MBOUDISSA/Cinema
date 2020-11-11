@@ -5,7 +5,9 @@ from flask.cli import with_appcontext
 from flask import(
      Flask, render_template, request,
      abort, redirect, url_for,
+
      session, flash, g, current_app,
+
 )
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -15,9 +17,51 @@ app.config.from_mapping(
     SECRET_KEY = 'dev'
 )
 
+
+
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+        db_connect = get_db()
+        error=None
+
+        if not username:
+            error = 'Vous devez inscrire un nom d\'utilisateur !'
+        elif not password:
+            error = 'Vous devez définir un mot de passe pour cet utilisateur !'
+        elif not email:
+            error = 'Vous devez renseigner un email pour cet utilisateur !'    
+        elif db_connect.execute(
+            'SELECT id_user FROM user WHERE username = ?', (username,)
+            ).fetchone() is not None:
+            error = 'Ce nom d\'utilisateur est déjà utilisé !'
+        elif db_connect.execute(
+                'SELECT id_user FROM user WHERE mail = ?', (email,)
+            ).fetchone() is not None:
+                error = 'l\'adresse mail est déjà utilisée!'
+        if error is None:
+            db_connect.execute(
+                'INSERT INTO user(username, password, mail) VALUES (?, ?, ?)',
+                (username,generate_password_hash(password), email)
+            )
+            db_connect.commit()
+            flash('Le compte est désormais inscrit, vous pouvez vous connecter')
+            #The user is redirected to the index page
+            return redirect(url_for('index'))
+        
+        flash(error)
+
+    return render_template('register.html')
+
 
 
 def get_db():

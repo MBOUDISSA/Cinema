@@ -4,7 +4,8 @@ DROP TABLE IF EXISTS film;
 CREATE TABLE user (
   id_user INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  mail TEXT NOT NULL
 );
 
 CREATE TABLE film (
@@ -19,8 +20,8 @@ CREATE TABLE film (
   FOREIGN KEY (author_id) REFERENCES user (id_user)
 );
 
-INSERT INTO user(id_user,username,password)
-VALUES(1,"Colin","bonjour");
+INSERT INTO user(id_user,username,password,mail)
+VALUES(1,"Colin","bonjour","Colin@gmail.com");
 
 INSERT INTO film(id_film,author_id,created,title,realisateur,date_sortie,synopsis)
 VALUES(1,1,CURRENT_TIMESTAMP,"Le seigneur des anneaux","Stephen King",2001-12-19,"Un jeune et timide `Hobbit', Frodon Sacquet, hérite d'un anneau magique. Bien loin d'être une simple babiole, il s'agit d'un instrument de pouvoir absolu qui permettrait à Sauron, le `Seigneur des ténèbres', de régner sur la `Terre du Milieu' et de réduire en esclavage ses peuples. Frodon doit parvenir jusqu'à la `Crevasse du Destin' pour détruire l'anneau.");
