@@ -131,8 +131,51 @@
         </div>
     </section>
     <-- Response of the demand here -->
+    <!--<h1>Gestions des prix des véhicules!</h1>
+    <div>
+        <p> Bienvenue ! {{username}} </p>
+        <a href={{url_for('logout')}}>Se deconnecter</a>
+    </div>
 
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages%}
+            <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+    {% endwith %}
 
+    <div>
+        <table>
+            <thead>
+                <th>Titre</th>
+                <th>Realisateur</th>
+                <th>Date de sortie</th>
+                <th>Modification</th>
+                <th>Suppression</th>
+            </thead>
+            <tbody>
+                {% for film in films %}
+                <tr>
+                    <td>{{film.film_title}}</td>
+                    <td>{{film.film_producer}}</td>
+                    <td>{{film.film_date}}</td>
+                    <td><a href={{url_for('modification', id=film.id)}}>Modifier les informations du film</a><td>
+                    <form action={{url_for('film_delete', id_car=film.id)}} method="post">
+                        <button class="danger" type="submit" value="Supprimer" onclick="return confirm('Are you sure?');">Supprimer le film</button>
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    {% if session.role != 'mecanicien' %}    
+        <a href={{url_for('film_add')}}>Ajouter un véhicule</a>
+    {% endif %}
+!-->
     <footer>
         <div class="container">
             <div class="row">
