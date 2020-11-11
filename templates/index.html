@@ -29,17 +29,28 @@
                             <img src="{{ url_for('static', filename='img/logo3.png') }}" alt="Venue Logo">
                         </div></a>
                         <nav id="primary-nav" class="dropdown cf">
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                            {% for message in messages%}
+                            <p>{{message}}</p>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith %}
                             <ul class="dropdown menu">
                                 <li>
-                                    <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#ModalLogin">
-                                        Se connecter
-                                    </a>
+                                    {% if session.get('id') is none: %}
+                                        <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#ModalLogin">
+                                            Se connecter
+                                        </a>
+                                    {% else: %}
+                                        <a>{{ session.get('id') }} connecté ! </a>
+                                    {% endif %}
                                 </li>
                                 <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                                      aria-hidden="true">
                                     <div class="modal-dialog modal-notify modal-warning" role="document">
                                         <!--Content-->
-                                        <form class="modal-content">
+                                        <form class="modal-content" action={{url_for('login')}} method="POST">
                                             <!--Header-->
                                             <div class="modal-header text-center">
                                                 <h4 class="modal-title white-text w-100 font-weight-bold py-2">Se connecter</h4>
@@ -51,17 +62,17 @@
                                             <!--Body-->
                                             <div class="modal-body">
                                                 <div class="md-form mb-5">
-                                                    <input type="text" id="form1Login" class="form-control validate" placeholder="Login">
+                                                    <input type="text" name="username" id="form1Login" class="form-control validate" placeholder="Login">
                                                 </div>
 
                                                 <div class="md-form">
-                                                    <input type="password" id="form1Pwd" class="form-control validate" placeholder="Mot de passe">
+                                                    <input type="password" name="password" id="form1Pwd" class="form-control validate" placeholder="Mot de passe">
                                                 </div>
                                             </div>
 
                                             <!--Footer-->
                                             <div class="modal-footer justify-content-center">
-                                                <a type="button" class="btn btn-outline-warning waves-effect">Connexion</a>
+                                                <button type="submit" class="btn">Connexion</button>
                                             </div>
                                         </form>
                                         <!--/.Content-->
