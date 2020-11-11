@@ -4,8 +4,16 @@ import click
 
 from flask import current_app, g
 from flask.cli import with_appcontext
+from flask import render_template
 from flask import Flask
+
 app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 
 def get_db():
     if 'db' not in g:
@@ -24,6 +32,7 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
+
 def init_db():
     db = get_db()
 
@@ -33,7 +42,6 @@ def init_db():
 
 @click.command('init-db')
 @with_appcontext
-
 def init_db_command():
     """Clear the existing data and create new tables"""
     init_db()

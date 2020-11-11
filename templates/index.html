@@ -1,10 +1,194 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Page d'acceuil</title>
-</head>
-<body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>VideoStore - Page d'acceuil</title>
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/fontAwesome.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    </head>
+
+<body>
+ 
+    <div class="wrap">
+        <header id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="index.html"><div class="logo">
+                            <img src="{{ url_for('static', filename='img/logo3.png') }}" alt="Venue Logo">
+                        </div></a>
+                        <nav id="primary-nav" class="dropdown cf">
+                            <ul class="dropdown menu">
+                                <li>
+                                    <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#ModalLogin">
+                                        Se connecter
+                                    </a>
+                                </li>
+                                <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog modal-notify modal-warning" role="document">
+                                        <!--Content-->
+                                        <form class="modal-content">
+                                            <!--Header-->
+                                            <div class="modal-header text-center">
+                                                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Se connecter</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!--Body-->
+                                            <div class="modal-body">
+                                                <div class="md-form mb-5">
+                                                    <input type="text" id="form1Login" class="form-control validate" placeholder="Login">
+                                                </div>
+
+                                                <div class="md-form">
+                                                    <input type="password" id="form1Pwd" class="form-control validate" placeholder="Mot de passe">
+                                                </div>
+                                            </div>
+
+                                            <!--Footer-->
+                                            <div class="modal-footer justify-content-center">
+                                                <a type="button" class="btn btn-outline-warning waves-effect">Connexion</a>
+                                            </div>
+                                        </form>
+                                        <!--/.Content-->
+                                    </div>
+                                </div>
+
+                               <!-- <li><a  href="#" onclick="document.getElementById('id01').style.display='block'">
+                                    Connexion
+                                </a></li>
+                                &lt;!&ndash; Modal &ndash;&gt;
+                                <div id="id01" class="modal">
+                                    <form class="modal-content animate" action="/action_page.php" method="POST">
+                                        <div class="container">
+                                            <input type="text" placeholder="Login" name="uname" required>
+                                            <input type="password" placeholder="Mot de passe" name="psw" required>
+                                            <button type="submit">Se connecter</button>
+                                            <button type="button"
+                                                    onclick="document.getElementById('id01').style.display='none'">
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>-->
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+      
+
+    
+    <section class="banner" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="banner-caption">
+                        <div class="line-dec"></div>
+                        <h2>Trouver votre film à regarder</h2>
+                        <span>VideoStore vous trouve le meilleur film à regarder dans la minute !</span>
+                        <div class="blue-button">
+                            <a class="scrollTo" data-scrollTo="popular" href="#">Ajouter un nouveau film</a>
+                        </div>
+                    </div>
+                    <div class="submit-form">
+                        <form id="form-submit" action="" method="get">
+                            <div class="row">
+                                <div class="col-md-9 first-item">
+                                    <fieldset>
+                                        <input name="name" type="text" class="form-control" id="name" placeholder="Titre du film..." required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-3">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="btn">Rechercher</button>
+                                        ou
+                                        <button type="submit" id="form-submit-all" class="btn">Voir tout les films</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <-- Response of the demand here -->
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="about-veno">
+                        <p>VideoStore est une entreprise privée à but lucratif régie par les lois du commerce
+                        et internet française, le site de VideoStore se veut coopératif avec sa communauté afin de
+                        trouver le film le plus adaté à votre soirée et le plus rapidement possible</p>
+                        <ul class="social-icons">
+                            <li>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-reddit"></i></a>
+                                <a href="#"><i class="fa fa-github"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="useful-links">
+                        <div class="footer-heading">
+                            <h4>Nos liens</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-stop"></i>Nos clients</a></li>
+                                    <li><a href="#"><i class="fa fa-stop"></i>Partenaires</a></li>
+                                    <li><a href="#"><i class="fa fa-stop"></i>Nous contacter</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contact-info">
+                        <div class="footer-heading">
+                            <h4>Nous joindre :</h4>
+                        </div>
+                        <p>VideoStore dispose dans d'au moins une agence dans chaque ville de chaque pays, alors il est
+                        très facile de nous contacter !</p>
+                        <ul>
+                            <li><span>Téléphone:</span><a href="#">069-666-001</a></li>
+                            <li><span>Email:</span><a href="#">community.club@videostore.int</a></li>
+                            <li><span>Adresse:</span><a href="#"> 47 rue Chauveau
+                                92200 Neuilly-sur-Seine FRANCE</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="sub-footer">
+        <p>Copyright &copy; 2020 VideoStore</p>
+    </div>
 </body>
 </html>
