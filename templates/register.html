@@ -1,0 +1,26 @@
+<!doctype html>
+<head>
+  <title>Inscrire un utilisateur</title>
+</head>
+<body>
+  <h1>Formulaire D'inscription</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages%}
+        <p>{{message}}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" action={{url_for('register')}}>
+    <label for="username">Nom d'utilisateur :</label>
+    <input type="text" name="username" id="username"/> <br>
+    <label for="password">Mot de passe:</label>
+    <input type="password" name="password" id="password"/> <br>
+    <label for="email">Adresse mail:</label>
+    <input type="text" name="email" id="email"/> <br>
+    <button type="submit">valider</button>
+  
+  </form>
+</body>
