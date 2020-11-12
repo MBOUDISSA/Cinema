@@ -58,7 +58,7 @@ app.cli.add_command(init_db_command)
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if session.get('id') is None:
+        if session.get('id_user') is None:
             return redirect(url_for('index'))
         return view(**kwargs)
     return wrapped_view
@@ -67,7 +67,7 @@ def login_required(view):
 
 @app.route('/')
 def index():
-     return render_template('index.html')
+     return render_template('index.html', films='')
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -76,7 +76,7 @@ def register():
         password = request.form['password']
         email = request.form['email']
         db_connect = get_db()
-        error=None
+        error = None
 
         if not username:
             error = 'Vous devez inscrire un nom d\'utilisateur !'
@@ -138,14 +138,15 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
-@app.route('/add', methods=('GET','POST'))
+@app.route('/add', methods=['GET','POST'])
+@login_required
 def add():
     
     db_connect = get_db()
     error = None    
     
     if request.method == 'POST':
-        film_title  = request.form['film_title']
+        film_title = request.form['film_title']
         film_author = request.form['film_author']
         film_date = request.form['film_date'] 
         film_synopsis = request.form['film_synopsis'] 
@@ -170,3 +171,31 @@ def add():
         flash(error)
 
     return render_template('add.html')
+
+@app.route('/show_research',methods=['POST', 'GET'])
+def show_research():
+
+    db_film = get_db()
+    error = None
+    film_title = request.form['film_title']
+    if not film_title:
+        error = 'Veuillez renseigner un titre dans la barre de recherche'
+
+    if error is None:
+        search_data = db_film.execute(
+            'SELECT * FROM film WHERE title like ?',
+            ('%'+film_title+'%',)
+        ).fetchall()
+
+    flash(error)
+    return render_template('index.html', films=search_data)
+
+@app.route('/show_all')
+def show_all():
+    db_film = get_db()
+    film_data = db_film.execute(
+        'SELECT * FROM film'
+    ).fetchall()
+
+    return render_template('index.html', films=film_data)
+

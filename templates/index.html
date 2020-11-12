@@ -79,25 +79,6 @@
                                         <!--/.Content-->
                                     </div>
                                 </div>
-
-                               <!-- <li><a  href="#" onclick="document.getElementById('id01').style.display='block'">
-                                    Connexion
-                                </a></li>
-                                &lt;!&ndash; Modal &ndash;&gt;
-                                <div id="id01" class="modal">
-                                    <form class="modal-content animate" action="/action_page.php" method="POST">
-                                        <div class="container">
-                                            <input type="text" placeholder="Login" name="uname" required>
-                                            <input type="password" placeholder="Mot de passe" name="psw" required>
-                                            <button type="submit">Se connecter</button>
-                                            <button type="button"
-                                                    onclick="document.getElementById('id01').style.display='none'">
-                                                Annuler
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>-->
-                                
                             </ul>
                         </nav>
                     </div>
@@ -121,18 +102,18 @@
                         </div>
                     </div>
                     <div class="submit-form">
-                        <form id="form-submit" action="" method="get">
+                        <form id="form-submit" action={{url_for('show_research')}} method="POST">
                             <div class="row">
                                 <div class="col-md-9 first-item">
                                     <fieldset>
-                                        <input name="name" type="text" class="form-control" id="name" placeholder="Titre du film..." required="">
+                                        <input name="film_title" type="search"  id="film_title" placeholder="Titre du film..." required="">
                                     </fieldset>
                                 </div>
                                 <div class="col-md-3">
                                     <fieldset>
-                                        <button type="submit" id="form-submit" class="btn">Rechercher</button>
+                                        <button type="submit" class="btn">Rechercher</button>
                                         ou
-                                        <button type="submit" id="form-submit-all" class="btn">Voir tout les films</button>
+                                        <a id="form-submit-all" href={{url_for('show_all')}} class="btn">Voir tout les films</a>
                                     </fieldset>
                                 </div>
                             </div>
@@ -142,8 +123,21 @@
             </div>
         </div>
     </section>
-    <-- Response of the demand here -->
-
+    {% if films is none: %}
+        <p>Pas de recherche pour le moment</p>
+    {% else : %}
+        <p>Resultat de la recherche</p>
+        {% for film in films %}
+        <table>
+            <tr>
+                <th><p>{{ film['title'] }}</p> </th>
+                <td><p>{{ film['realisateur'] }}</p></td>
+                <td><p>{{ film['synopsis'] }}</p></td>
+                <td><p>{{ film['date_sortie'] }}</p></td>
+            </tr>
+        </table>
+        {% endfor %}
+    {% endif %}
     <footer>
         <div class="container">
             <div class="row">
