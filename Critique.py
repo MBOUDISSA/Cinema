@@ -2,6 +2,7 @@ import os
 import sqlite3
 import click
 import functools
+import datetime
 from flask.cli import with_appcontext
 from flask import(
      Flask, render_template, request,
@@ -136,3 +137,36 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
+@app.route('/add', methods=('GET','POST'))
+def add():
+    
+    db_connect = get_db()
+    error = None    
+    
+    if request.method == 'POST':
+        film_title  = request.form['film_title']
+        film_author = request.form['film_author']
+        film_date = request.form['film_date'] 
+        film_synopsis = request.form['film_synopsis'] 
+
+        if not film_title:
+            error = 'Veuillez saisir le titre !'
+        elif not film_author:
+            error = 'Veuillez saisir le réalisateur !'
+        elif not film_date:
+            error = 'Veuillez saisir la date de sortie !'
+        elif not film_synopsis:
+            error = 'Veuillez saisir le synopsis !'
+        
+        if error is None:
+            db_connect.execute(
+                'INSERT INTO film (author_id,created,title,realisateur,date_sortie,synopsis) VALUES (?, ?, ?, ?, ?, ?)',
+                (session['username'], datetime.datetime.now(), film_title, film_author, film_date, film_synopsis)
+                )
+            db_connect.commit()
+            return redirect(url_for('index'))
+
+        flash(error)
+
+    return render_template('add.html')

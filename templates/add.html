@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un film</title>
+</head>
+<body>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages%}
+            <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h1>Ajout d'un film</h1>
+
+    <form action={{url_for('add')}} method="POST">
+        <label for="film_title">Titre du film : </label>
+        <input type="text" name="film_title" id="film_title" placeholder="Entrez le titre du film"><br/>
+        <label for="film_author">Réalisateur du film </label>
+        <input type="text" name="film_author" id="film_author" placeholder="Entrez le réalisateur du film"><br/>
+        <label for="film_date">Date du film </label>
+        <input type="text" name="film_date" id="film_date" placeholder="Entrez la date de sortie du film"><br/>
+        <label for="film_synopsis">Synopsis </label>
+        <input type="text" name="film_synopsis" id="film_synopsis" placeholder="Entrez le synopsis du film"><br/>
+    
+        <button type="submit">Ajouter</button>
+    </form>
+
+
+   
+</body>
+</html>
