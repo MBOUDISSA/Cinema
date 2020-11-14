@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{{film['title']}}</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <table>
+        <th>titre {{film['title']}}</th>
+        <td>realisateur {{film['realisateur']}}</td>
+        <td>synopsis {{film['synopsis']}}</td>
+    </table>
+    <a class="btn btn-danger" href="/delete/{{film['id_film']}}" methods="POST" onclick="checkDeleteItem();">Supprimer</a>
+    <a class="btn btn-warning" data-toggle="modal" data-target="#ModalUpdate" methods="POST">Modifier</a>
+
+    <!--Modal to update a film-->
+    <div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-warning" role="document">
+            <!--Content-->
+            <form class="modal-content" action="/update/{{film['id_film']}}" method="POST">
+                <!--Header-->
+                <div class="modal-header text-center">
+                    <h4 class="modal-title white-text w-100 font-weight-bold py-2">Se connecter</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="md-form mb-5">
+                        <input type="text" name="title" id="form1Title" class="form-control validate" value="{{film['title']}}">
+                    </div>
+
+                    <div class="md-form">
+                        <input type="text" name="realisateur" id="form1Real" class="form-control validate" value="{{film['realisateur']}}">
+                    </div>
+
+                    <div class="md-form">
+                        <input type="date" name="date_sortie" id="form1Date" class="form-control validate" value="{{film['date_sortie']}}">
+                    </div>
+
+                    <div class="md-form">
+                        <input type="text" name="synopsis" id="form1Synopsis" class="form-control validate" value="{{film['synopsis']}}">
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">
+                    <button type="submit" class="btn">Connexion</button>
+                </div>
+            </form>
+            <!--/.Content-->
+        </div>
+    </div>
+</body>
+    <script>
+        function checkDeleteItem() {
+            return confirm('Voulez-vous vraiment supprimer ce film ?');
+        }
+    </script>
+</html>
