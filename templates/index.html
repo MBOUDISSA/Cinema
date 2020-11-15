@@ -130,7 +130,7 @@
         {% for film in films %}
         <table>
             <tr>
-                <th><p>{{ film['title'] }}</p> </th>
+                <th><a href="/film/{{film['id_film']}}"><p>{{ film['title'] }}</p></a> </th>
                 <td><p>{{ film['realisateur'] }}</p></td>
                 <td><p>{{ film['synopsis'] }}</p></td>
                 <td><p>{{ film['date_sortie'] }}</p></td>

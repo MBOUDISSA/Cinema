@@ -199,3 +199,58 @@ def show_all():
 
     return render_template('index.html', films=film_data)
 
+@app.route('/film/<int:id_film>')
+def show_one(id_film = None):
+    db_film = get_db()
+    film = db_film.execute(
+        'SELECT * FROM film WHERE id_film = ?',
+        (id_film,)
+    ).fetchone()
+
+    return render_template('film.html', film = film)
+
+@app.route('/delete/<int:id_film>', methods=['POST', 'GET'])
+@login_required
+def delete(id_film = None):
+    db_film = get_db()
+    db_film.execute(
+        'DELETE FROM film WHERE id_film = ? ',
+        (id_film,)
+    )
+    db_film.commit()
+    success = "Le film a bien été supprimé"
+    flash(success)
+    return render_template('index.html')
+
+@app.route('/update/<int:id_film>', methods=['POST', 'GET'])
+@login_required
+def update(id_film = None):
+    db_film = get_db()
+
+    error = None
+    if request.method == 'POST' :
+        title = request.form['title']
+        realisateur = request.form['realisateur']
+        date_sortie = request.form['date_sortie']
+        synopsis = request.form['synopsis']
+
+        if not title:
+            error = 'Veuillez saisir le titre !'
+        elif not realisateur:
+            error = 'Veuillez saisir le réalisateur !'
+        elif not date_sortie:
+            error = 'Veuillez saisir la date de sortie !'
+        elif not synopsis:
+            error = 'Veuillez saisir le synopsis !'
+
+        if error is None:
+            db_film.execute(
+                'UPDATE film SET title = ?, realisateur = ?, date_sortie = ?, synopsis = ?, modify_by = ?, modified = ? WHERE id_film = ?',
+                (title, realisateur, date_sortie, synopsis, session['id_user'], datetime.datetime.now(), id_film,)
+            )
+            db_film.commit()
+            success = "La modification a été effectué"
+        flash(error)
+        flash(success)
+
+    return render_template('index.html')
