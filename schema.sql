@@ -16,7 +16,8 @@ CREATE TABLE film (
   realisateur TEXT NOT NULL,
   date_sortie DATE NOT NULL,
   synopsis TEXT NOT NULL,
-
+  modify_by INTEGER,
+  modified TIMESTAMP,
   FOREIGN KEY (author_id) REFERENCES user (id_user)
 );
 
