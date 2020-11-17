@@ -1,50 +1,54 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>VideoStore - Page d'acceuil</title>
-        
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/fontAwesome.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>VideoStore - Page d'acceuil</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    </head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+</head>
 
 <body>
- 
+
     <div class="wrap">
         <header id="header">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="index.html"><div class="logo">
+                        <a href="{{url_for('index')}}"><div class="logo">
                             <img src="{{ url_for('static', filename='img/logo3.png') }}" alt="Venue Logo">
                         </div></a>
                         <nav id="primary-nav" class="dropdown cf">
                             <ul class="dropdown menu">
                                 {% if session.get('id_user') is none : %}
-                                    <li>
-                                        <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#ModalLogin">
-                                            Se connecter
-                                        </a>
-                                    </li>
+                                <li>
+                                    <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#ModalLogin">
+                                        Se connecter
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url_for('register')}}" class="btn btn-default btn-rounded" >
+                                        Se créer un compte
+                                    </a>
+                                </li>
                                 {% else: %}
-                                    <li>
-                                        <a>utilisateur : {{ session['username'] }}</a>
-                                    </li>
-                                    <li>
-                                        <a href={{url_for('logout')}} class="btn btn-default btn-rounded">
-                                            Se déconnecter
-                                        </a>
-                                    </li>
+                                <li>
+                                    <a>utilisateur : {{ session['username'] }}</a>
+                                </li>
+                                <li>
+                                    <a href={{url_for('logout')}} class="btn btn-default btn-rounded">
+                                        Se déconnecter
+                                    </a>
+                                </li>
                                 {% endif %}
 
                                 <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -87,10 +91,20 @@
         </header>
     </div>
 
-
-    
     <section class="banner" id="top">
         <div class="container">
+            <div class="container message">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="banner-caption">
@@ -113,7 +127,7 @@
                                     <fieldset>
                                         <button type="submit" class="btn">Rechercher</button>
                                         ou
-                                        <a id="form-submit-all" href={{url_for('show_all')}} class="btn">Voir tout les films</a>
+                                        <a id="form-submit-all" href={{url_for('show_all')}} class="btn btn-light">Voir tout les films</a>
                                     </fieldset>
                                 </div>
                             </div>
@@ -123,29 +137,29 @@
             </div>
         </div>
     </section>
-    {% if films is none: %}
-        <p>Pas de recherche pour le moment</p>
-    {% else : %}
-        <p>Resultat de la recherche</p>
-        {% for film in films %}
-        <table>
-            <tr>
-                <th><a href="/film/{{film['id_film']}}"><p>{{ film['title'] }}</p></a> </th>
-                <td><p>{{ film['realisateur'] }}</p></td>
-                <td><p>{{ film['synopsis'] }}</p></td>
-                <td><p>{{ film['date_sortie'] }}</p></td>
-            </tr>
-        </table>
-        {% endfor %}
-    {% endif %}
+    <div class="container display_film">
+        {% if films=='': %}
+        <h2 class="text-center">Pas de recherche pour le moment</h2>
+        {% else : %}
+        <h2 class="text-center">Resultat de la recherche</h2>
+        <div class="row justify-content-around">
+            {% for film in films %}
+            <div class="col-3">
+                <a href="/film/{{film['id_film']}}"><h5 class="text-center">{{ film['title'] }}</h5></a>
+                <p class="text-center">{{ film['realisateur'] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
                     <div class="about-veno">
                         <p>VideoStore est une entreprise privée à but lucratif régie par les lois du commerce
-                        et internet française, le site de VideoStore se veut coopératif avec sa communauté afin de
-                        trouver le film le plus adaté à votre soirée et le plus rapidement possible</p>
+                            et internet française, le site de VideoStore se veut coopératif avec sa communauté afin de
+                            trouver le film le plus adaté à votre soirée et le plus rapidement possible</p>
                         <ul class="social-icons">
                             <li>
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -179,7 +193,7 @@
                             <h4>Nous joindre :</h4>
                         </div>
                         <p>VideoStore dispose dans d'au moins une agence dans chaque ville de chaque pays, alors il est
-                        très facile de nous contacter !</p>
+                            très facile de nous contacter !</p>
                         <ul>
                             <li><span>Téléphone:</span><a href="#">069-666-001</a></li>
                             <li><span>Email:</span><a href="#">community.club@videostore.int</a></li>
@@ -196,4 +210,3 @@
         <p>Copyright &copy; 2020 VideoStore</p>
     </div>
 </body>
-</html>
