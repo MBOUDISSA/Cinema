@@ -198,7 +198,7 @@ section {
   -webkit-box-shadow: none;
 }
 
-.submit-form button {
+fieldset .btn{
   width: 100%;
   height: 50px;
   line-height: 35px;
@@ -214,10 +214,64 @@ section {
   transition: all 0.5s;
 }
 
-.submit-form button:hover {
+fieldset .btn:hover{
   background-color: transparent;
   color: #763fe1;
 }
+
+.display_film{
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+}
+.display_film h2{
+  color : #9a9a9a;
+  margin-bottom: 100px;
+}
+
+.display_film h5 {
+  color: #763fe1;
+}
+
+.col-3 .border .rounded{
+  border : #9a9a9a 1px solid;
+  color: #9a9a9a;
+}
+.rounded{
+  margin-bottom: 30px;
+}
+
+.film, .register, .add_film{
+  border-top: #763fe1 1px solid;
+}
+.informations h2, .register h1, .add_film h1{
+  color: #9a9a9a;
+  margin-bottom: 100px;
+  margin-top: 200px;
+}
+.buttons{
+  margin-top: 50px;
+}
+
+.register form, .add_film form{
+  border : solid 1px #763fe1;
+  width: 60%;
+  margin: auto;
+  padding: 40px 80px;
+}
+
+.register form button, .add_film form button{
+  margin: 30px auto auto;
+  color: #cdcdcd;
+  border-color: #763fe1;
+  background-color: #763fe1;
+}
+
+.register form button:hover, .add_film form button:hover{
+  color: #763fe1;
+  background-color: transparent;
+}
+
 
 
 footer {
