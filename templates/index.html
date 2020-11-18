@@ -127,7 +127,7 @@
                                     <fieldset>
                                         <button type="submit" class="btn">Rechercher</button>
                                         ou
-                                        <a id="form-submit-all" href={{url_for('show_all')}} class="btn btn-light">Voir tout les films</a>
+                                        <a id="form-submit-all" href={{url_for('show_all')}} class="btn">Voir tout les films</a>
                                     </fieldset>
                                 </div>
                             </div>
@@ -142,12 +142,15 @@
         <h2 class="text-center">Pas de recherche pour le moment</h2>
         {% else : %}
         <h2 class="text-center">Resultat de la recherche</h2>
-        <div class="row justify-content-around">
+        <div class="row justify-content-around display">
             {% for film in films %}
-            <div class="col-3">
-                <a href="/film/{{film['id_film']}}"><h5 class="text-center">{{ film['title'] }}</h5></a>
-                <p class="text-center">{{ film['realisateur'] }}</p>
-            </div>
+                <div class="col-3 border rounded">
+                    <a href="/film/{{film['id_film']}}">
+                        <h5 class="text-center">{{ film['title'] }}</h5>
+                        <p class="text-center">{{ film['realisateur'] }}</p>
+                    </a>
+                </div>
+                --
             {% endfor %}
         </div>
         {% endif %}

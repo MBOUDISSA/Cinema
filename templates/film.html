@@ -90,7 +90,8 @@
             </div>
         </header>
     </div>
-    <div class="container film">
+
+    <div class="container-fluid film">
         <div class="container message">
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -103,16 +104,18 @@
             {% endif %}
             {% endwith %}
         </div>
-        <div class="informations">
+        <div class="container informations">
             <h2 class="text-center"> {{film['title']}} </h2>
-            <p><strong>Realisateur :</strong> {{film['realisateur']}}</p>
-            <p><strong>Synopsis :</strong> {{film['synopsis']}}</p>
-            <p><strong>Date de sortie :</strong> {{film['date_sortie']}}</p>
-            <p>Ajouter par l'utilisateur n°{{film['author_id']}}, le {{film['created']}}</p>
-            <p>Modifié le {{film['modified']}} par l'utilisateur n°{{film['modify_by']}}</p>
+            <p class="text-center"><strong>Realisateur :</strong> {{film['realisateur']}}</p>
+            <p class="text-center"><strong>Synopsis :</strong> {{film['synopsis']}}</p>
+            <p class="text-center"><strong>Date de sortie :</strong> {{film['date_sortie']}}</p>
+            <p class="text-center">Ajouter par l'utilisateur n°{{film['author_id']}}, le {{film['created']}}</p>
+            <p class="text-center">Modifié le {{film['modified']}} par l'utilisateur n°{{film['modify_by']}}</p>
         </div>
-        <a class="btn btn-danger" href="/delete/{{film['id_film']}}" methods="POST" onclick="checkDeleteItem();">Supprimer</a>
-        <a class="btn btn-warning" data-toggle="modal" data-target="#ModalUpdate" methods="POST">Modifier</a>
+        <div class="container buttons">
+            <a class="btn btn-danger" href="/delete/{{film['id_film']}}" methods="POST" onclick="checkDeleteItem();">Supprimer</a>
+            <a class="btn btn-warning" data-toggle="modal" data-target="#ModalUpdate" methods="POST">Modifier</a>
+        </div>
     </div>
     <!--Modal to update a film-->
     <div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
