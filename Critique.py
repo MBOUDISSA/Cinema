@@ -20,6 +20,7 @@ app.config.from_mapping(
 
 
 def get_db():
+    """Function to get the database"""
     if 'db' not in g:
         g.db = sqlite3.connect(
             os.path.join(app.instance_path, 'schema.sql'),
@@ -31,6 +32,7 @@ def get_db():
 
 
 def close_db(e=None):
+    """Function to close the database"""
     db = g.pop('db', None)
 
     if db is not None:
@@ -38,6 +40,7 @@ def close_db(e=None):
 
 
 def init_db():
+    """Function to initialize the database"""
     db = get_db()
 
     with current_app.open_resource('schema.sql') as f:
@@ -57,6 +60,7 @@ app.cli.add_command(init_db_command)
 
 
 def login_required(view):
+    """Check if the user is connected if not ask him to"""
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if session.get('id_user') is None:
@@ -75,6 +79,7 @@ def index():
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+    """Add a new user to the database and check if he's not already register"""
     db_connect = get_db()
     error = None
     if request.method == 'POST':
@@ -112,6 +117,7 @@ def register():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    """Check if the user and password entered in the form is in the database"""
     db_user = get_db()
     error = None
     if request.method == 'POST':
@@ -140,6 +146,7 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """Reset the session"""
     session.clear()
     return redirect(url_for('index'))
 
@@ -147,6 +154,7 @@ def logout():
 @app.route('/add', methods=['GET', 'POST'])
 @login_required
 def add():
+    """Add a movie in the table film in the database. Also check if all the field are entered"""
     db_connect = get_db()
     error = None
 
@@ -182,6 +190,7 @@ def add():
 
 @app.route('/show_research', methods=['POST', 'GET'])
 def show_research():
+    """Show all movies containing the characters entered by the user"""
     db_film = get_db()
     error = None
     if request.method == 'POST':
@@ -199,6 +208,7 @@ def show_research():
 
 @app.route('/show_all')
 def show_all():
+    """Show all the movies"""
     db_film = get_db()
     film_data = db_film.execute(
         'SELECT * FROM film'
@@ -209,6 +219,7 @@ def show_all():
 
 @app.route('/film/<int:id_film>')
 def show_one(id_film=None):
+    """Show a specific movie based on its id"""
     db_film = get_db()
     film = db_film.execute(
         'SELECT * FROM film WHERE id_film = ?',
@@ -221,6 +232,7 @@ def show_one(id_film=None):
 @app.route('/delete/<int:id_film>', methods=['POST', 'GET'])
 @login_required
 def delete(id_film=None):
+    """Delete a movie from the database"""
     db_film = get_db()
     db_film.execute(
         'DELETE FROM film WHERE id_film = ? ',
@@ -235,6 +247,7 @@ def delete(id_film=None):
 @app.route('/update/<int:id_film>', methods=['POST', 'GET'])
 @login_required
 def update(id_film=None):
+    """Update an existing movie in the database via a form"""
     db_film = get_db()
     error = None
 
