@@ -22,7 +22,7 @@ CREATE TABLE film (
 );
 
 INSERT INTO user(id_user,username,password,mail)
-VALUES(1,"Colin","bonjour","Colin@gmail.com");
+VALUES(1,"admin","pbkdf2:sha256:150000$mB6Wb7II$e1332813882dd1c5454e85f6e666177e702e8f6dd24e91739e89457104d08adf","root@gmail.com");
 
 INSERT INTO film(id_film,author_id,created,title,realisateur,date_sortie,synopsis)
 VALUES(1,1,CURRENT_TIMESTAMP,"Le seigneur des anneaux","Stephen King","2001-12-19","Un jeune et timide `Hobbit', Frodon Sacquet, hérite d'un anneau magique. Bien loin d'être une simple babiole, il s'agit d'un instrument de pouvoir absolu qui permettrait à Sauron, le `Seigneur des ténèbres', de régner sur la `Terre du Milieu' et de réduire en esclavage ses peuples. Frodon doit parvenir jusqu'à la `Crevasse du Destin' pour détruire l'anneau.");
