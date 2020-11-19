@@ -23,6 +23,8 @@ def get_db():
     """Function to get the database"""
     if 'db' not in g:
         g.db = sqlite3.connect(
+            # if os.path.isdir("instance") == False:
+            #   os.makedirs("instance")
             os.path.join(app.instance_path, 'schema.sql'),
             detect_types=sqlite3.PARSE_DECLTYPES
         )
@@ -61,6 +63,7 @@ app.cli.add_command(init_db_command)
 
 def login_required(view):
     """Check if the user is connected if not ask him to"""
+
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if session.get('id_user') is None:
